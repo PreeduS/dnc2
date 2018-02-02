@@ -1,0 +1,10 @@
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\bin\Debug\netcoreapp2.0\dnc2.deps.json
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\bin\Debug\netcoreapp2.0\dnc2.runtimeconfig.json
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\bin\Debug\netcoreapp2.0\dnc2.runtimeconfig.dev.json
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\bin\Debug\netcoreapp2.0\dnc2.dll
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\bin\Debug\netcoreapp2.0\dnc2.pdb
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\obj\Debug\netcoreapp2.0\dnc2.csproj.CoreCompileInputs.cache
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\obj\Debug\netcoreapp2.0\dnc2.AssemblyInfoInputs.cache
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\obj\Debug\netcoreapp2.0\dnc2.AssemblyInfo.cs
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\obj\Debug\netcoreapp2.0\dnc2.dll
+C:\Users\Laurentiu.Tamasila\Desktop\dnc2\obj\Debug\netcoreapp2.0\dnc2.pdb
