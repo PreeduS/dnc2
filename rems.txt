@@ -1,0 +1,73 @@
+rems:
+
+
+.net core sdk
+
+
+
+
+---------
+dotnet new console			//create console app
+dotnet new console -o folderName	//create inside folder
+					//web - .net core empty
+dotnet restore
+dotnet build
+dotnet run
+
+dotnet watch run
+
+
+//PackageReference
+dotnet add package Microsoft.EntityFrameworkCore --version 2.0.1
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 2.0.1
+
+-----------
+//DotNetCliToolReference
+<ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+</ItemGroup> 
+
+
+//nope for CliToolReference //dotnet add package Microsoft.DotNet.Watcher.Tools --version 2.0.0
+
+
+
+
+
+
+
+
+--------
+dotnet ef migrations add Initial --context TestDbContext
+
+dotnet ef database update --context TestDbContext
+
+
+
+
+--------
+sqlite3 dbname.db
+
+.mode column         //line
+.headers on
+.width 15 20	
+.schema tableName	
+.show				//show settings	
+					//.nullvalue 'NULL' //change ex
+.dump
+
+.output ./path
+.read ./path			//execute sql code
+.exit
+
+
+.help
+
+
+
+--------
+
+vsc
+
+ctrl+p
