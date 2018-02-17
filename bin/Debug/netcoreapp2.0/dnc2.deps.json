@@ -24,6 +24,8 @@
       "dnc2/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.All": "2.0.5",
+          "Microsoft.EntityFrameworkCore": "2.0.1",
+          "Microsoft.EntityFrameworkCore.Tools": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0"
         },
         "runtime": {
@@ -5507,7 +5509,7 @@
     "System.Interactive.Async/3.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CRd+8T1QsDCWKsNCOBNk2qun+J4yj0WsiJmyFEzuhbsL9096rxsvCB1Wt0hRSdZiycsqVpE+zk3/gmvk3O8GFQ==",
+      "sha512": "sha512-hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
       "path": "system.interactive.async/3.1.1",
       "hashPath": "system.interactive.async.3.1.1.nupkg.sha512"
     },
@@ -5556,7 +5558,7 @@
     "System.Linq.Queryable/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4jMPG0QE+70fSX2n9GJk1FWzmgAEoT23ONPwNgoXs9by2CTVPnYZzacSfU+ei/Jg+XkvtX0P33GcDfSWc8W0Ew==",
+      "sha512": "sha512-Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
       "path": "system.linq.queryable/4.0.1",
       "hashPath": "system.linq.queryable.4.0.1.nupkg.sha512"
     },
