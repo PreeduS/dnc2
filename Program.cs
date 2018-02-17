@@ -24,7 +24,9 @@ namespace dnc2
                     configBuilder.AddJsonFile("mySettings.json");
                     /*if( context.HostingEnvironment.IsDevelopment() ){
                        configBuilder.AddJsonFile("mySettings.dev.json", optional: true);
+                       //or maybe use context.HostingEnvironment.EnvironmentName
                     }*/ 
+                    //configBuilder.AddEnvironmentVariables();
                 })
                 .Build();
     }
