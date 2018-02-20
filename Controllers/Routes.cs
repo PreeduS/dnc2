@@ -69,15 +69,17 @@ namespace dnc2.Controllers
                 ctx.Users.Add(user);
                  
                 ctx.SaveChanges();
+                //user = new result added to db
+                return $"addToDb: {userName}, {commentText}, : {user.Id}";
            }
-           return $"addToDb: {userName}, {commentText}";
+           
         }
 
         [HttpGet("readDb")]
-        public ContentResult readDb(){
+        public IActionResult readDb(){
             using( var ctx = new TestDbContext() ){
                 //var data = ctx.Comments.LastOrDefaultAsync().Result;
-                //return $"Comment id =  {data.UserId}, Comment = {data.Text}";
+           
                 
                 var data = (
                     from c in ctx.Comments
@@ -89,8 +91,9 @@ namespace dnc2.Controllers
                         name = u.Name,
                         comment = c.Text,
                         commentId = c.Id
-                    }        
-                ).Take(5).OrderByDescending( x => x.id ).ToList();
+                    }                       
+                ).OrderByDescending( x => x.id ).ToList();
+                //).Take(5).OrderByDescending( x => x.id ).ToList();
 
                 string returnData = "";
                 foreach( var d in data ){
@@ -98,6 +101,7 @@ namespace dnc2.Controllers
                 }
 
                 return Content(returnData,"text/html");
+                //return Json(data);
 
                 /* var test2 = ctx.Comments
                             .Join();   */                       
@@ -105,9 +109,42 @@ namespace dnc2.Controllers
             }
             
            
-        }        
+        }     
+        [HttpGet("getUserData/{username}")]
+        public IActionResult getUserData(string username){
+            using( var ctx = new TestDbContext() ){
+                var userData = ctx.Users.Where(u => u.Name == username).FirstOrDefault();
+                return Json(userData);
+            }    
+        }
+        [HttpGet("updateUser/{username}")]
+        public IActionResult updateUser(string username){
+            using( var ctx = new TestDbContext() ){
+                var user = ctx.Users.Where(u => u.Name == username).FirstOrDefault();
+                
+                user.Name = $"{username} updated 2";
 
+                //ctx.Entry(user).State = EntityState.Modified; //check later,diff context maybe 
+                ctx.SaveChanges();
+       
+                return Json(new {name = user.Name, id = user.Id  });
+            }    
+        }
+
+        [HttpGet("deleteUser/{username}")]
+        public string deleteUser(string username){
+                using( var ctx = new TestDbContext() ){
+                    var user = ctx.Users.Where(u => u.Name == username).FirstOrDefault();
+
+                    if(user == null){return "User not found";}
+                    ctx.Entry(user).State = EntityState.Deleted;
+                    ctx.SaveChanges();
+        
+                    return "deleted: " + (user.Name);
+                }    
+        }               
     }
+
 
     public class Value{
         public int Id{ get; set;}
