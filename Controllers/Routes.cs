@@ -38,6 +38,7 @@ namespace dnc2.Controllers
             }
         }
         public IActionResult Post2([FromBody] Value value ){
+            Console.Write(ModelState.Values + " --- " + ModelState.ValidationState); 
             if(!ModelState.IsValid){
                return BadRequest(ModelState);
             }
@@ -124,7 +125,9 @@ namespace dnc2.Controllers
                 
                 user.Name = $"{username} updated 2";
 
-                //ctx.Entry(user).State = EntityState.Modified; //check later,diff context maybe 
+                ctx.Entry(user).State = EntityState.Modified; //check later,diff context maybe 
+                //ctx.Users.Update(user);
+
                 ctx.SaveChanges();
        
                 return Json(new {name = user.Name, id = user.Id  });
@@ -138,6 +141,8 @@ namespace dnc2.Controllers
 
                     if(user == null){return "User not found";}
                     ctx.Entry(user).State = EntityState.Deleted;
+                    //ctx.Users.Remove(user);
+                    
                     ctx.SaveChanges();
         
                     return "deleted: " + (user.Name);
@@ -149,7 +154,7 @@ namespace dnc2.Controllers
     public class Value{
         public int Id{ get; set;}
         
-        [MinLength(3)]
+        [MinLength(3, ErrorMessage = " Min 3 chars")]
         public int Text{ get; set;}
     }
 }
