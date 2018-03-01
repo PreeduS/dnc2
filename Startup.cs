@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using dnc2.Configs;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace dnc2
 {
@@ -23,8 +26,10 @@ namespace dnc2
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            //services.AddDbContext<TestDbContext>(option => option.UseSqlite("Filename=./sqlite/Test.db") );
+            //services.AddMvc();
+            //services.AddMvc(options => options.Conventions.Insert(0,new ModeRouteConvention( route => new List<string>{"aaa","Routes","ccc"}.Contains(route, StringComparer.Ordinal)    ) ) );
+            services.AddMvc(options => options.Conventions.Insert(0,new ModeRouteConvention() ) );
+            
             //services.AddDbContext<TestDbContext>(option => option.UseSqlite("Data Source=./sqlite/Test.db") );
         }
 
@@ -35,13 +40,41 @@ namespace dnc2
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-                app.UseStaticFiles();
+
+                app.UseDefaultFiles( new DefaultFilesOptions(){
+                    FileProvider = new PhysicalFileProvider( Path.Combine(Directory.GetCurrentDirectory(), "appPublic") ),
+                    DefaultFileNames = new List<string>{"index.html"},
+                    RequestPath = "" 
+                });
+                app.UseStaticFiles( new StaticFileOptions(){
+                    FileProvider = new PhysicalFileProvider( Path.Combine(Directory.GetCurrentDirectory(), "appPublic") ),
+                    RequestPath = ""   //   "/app"                
+                } );
 
                 app.UseMvc();
+                app.UseMvc( routes =>{
+                        /*routes.MapRoute( 
+                            name: "default", 
+                            template: "{controller}/{action}" 
+                        );*/          
+                        
+                        routes.MapRoute( 
+                            name: "fallback-route-be", 
+                            template: "api/{*url}",
+                            defaults: new { controller = "FallBack", action = "beFallback" }
+                        );
+                         routes.MapRoute( 
+                            name: "fallback-route-fe", 
+                            template: "{*url}",   //   {url:regex(^(?!api).*$)}
+                            defaults: new { controller = "FallBack", action = "feFallback" }
+                        );                                        
+                 
+                    }
+                );
             
             app.Run(async (context) =>{
-                await context.Response.WriteAsync("Fallback testVar = " + configuration["testVar"]);
+                //await context.Response.WriteAsync("Fallback testVar = " + configuration["testVar"] );
+                await context.Response.SendFileAsync( Path.Combine(Directory.GetCurrentDirectory(), "appPublic","index.html") );
             });
         }
     }
