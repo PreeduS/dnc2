@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using dnc2.Services;
 
 namespace dnc2
 {
@@ -26,6 +27,9 @@ namespace dnc2
             services.AddMvc();
             //services.AddDbContext<TestDbContext>(option => option.UseSqlite("Filename=./sqlite/Test.db") );
             //services.AddDbContext<TestDbContext>(option => option.UseSqlite("Data Source=./sqlite/Test.db") );
+          
+            services.AddSingleton<IDependencyA,DependencyA>();  
+            services.AddTransient<IDependencyTransient,DependencyTransient>();  //AddScoped
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

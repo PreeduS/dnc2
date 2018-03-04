@@ -44,7 +44,7 @@ dotnet ef migrations add Initial --context TestDbContext
 dotnet ef database update --context TestDbContext
 
 
-
+dotnet ef database update migrationName --context TestDbContext
 
 --------
 sqlite3 dbname.db
@@ -53,6 +53,7 @@ sqlite3 dbname.db
 .headers on
 .width 15 20	
 .schema tableName	
+.tables
 .show				//show settings	
 					//.nullvalue 'NULL' //change ex
 .dump
