@@ -2,11 +2,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace dnc2.Models{
 
-    public class TestDbContext : DbContext{
+    //public class TestDbContext : DbContext{
+    public class TestDbContext : IdentityDbContext<ApplicationUser>{
         //public TestDbContext(DbContextOptions<TestDbContext> options) : base(options){ }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
@@ -28,7 +30,7 @@ namespace dnc2.Models{
                 }            
             }
 
-
+            base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges(){
