@@ -33,6 +33,7 @@ namespace dnc2
             services.AddMvc(options => options.Conventions.Insert(0,new ModeRouteConvention() ) );
             
             //services.AddDbContext<TestDbContext>(option => option.UseSqlite("Data Source=./sqlite/Test.db") );
+            services.AddDbContext<TestDbContext>();
           
             services.AddSingleton<IDependencyA,DependencyA>();  
             services.AddTransient<IDependencyTransient,DependencyTransient>();  //AddScoped

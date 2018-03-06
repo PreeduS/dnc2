@@ -18,7 +18,7 @@ namespace dnc2.Configs{
 
         public void Apply(ApplicationModel application)
         {     
-            var globalPrefix = new AttributeRouteModel(new RouteAttribute("prefix/"));
+            var globalPrefix = new AttributeRouteModel(new RouteAttribute("api/"));
 
             foreach( var controller in application.Controllers ){
                 

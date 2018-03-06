@@ -10,7 +10,9 @@ namespace dnc2.Models{
 
         public string Name { get; set; }
 
-        public List<Comment> Comment { get; set; }
+        public List<Comment> Comment { get; set; }  
+
+        public UserDetails UserDetails{ get; set; }  //one to one convention
 
     }
 
