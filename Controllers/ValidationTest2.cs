@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using dnc2.Models;
+using dnc2.Repos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,60 +11,44 @@ namespace dnc2.Controllers{
 
     [Route("v2")]
     public class ValidationTest2Controller : Controller{
+        ValidationTest2Repository repo = new ValidationTest2Repository(new TestDbContext());
+
+        public ValidationTest2Controller(){
+            
+        }
 
         [Route("test")]
         public String test(ValidationTest2ViewModel data){
             
 
             if( ModelState.IsValid ){
-               //return("ValidationTest2ViewModel valid");
                 var vTest = new ValidationTest2(){
                     Name = data.Name,
                     TextData = data.TextData
                 };
-                using( var ctx = new TestDbContext() ){
-                    ctx.ValidationTest2.Add(vTest);
 
+                try{
+                    repo.addData(vTest);
 
-                    try{
-                        ctx.SaveChanges();
-
-                    }catch(DbUpdateException e){
-                   
-                            //return("ValidationTest2ViewModel try not valid, e: "+e);
-                  
-                        Console.WriteLine("--------------------"+e.Entries.Count);
-                        Console.WriteLine("--------------------"+e.Data.Count);
-
-                      
-                        
-                         Console.WriteLine();
-                 
-                     //return(e.InnerException.Message);
-                    }catch(ValidationException e2 ){
-
-                         if(ModelState.IsValid ){
-                             Console.WriteLine("-------ms edit true-----------222--");
-                         }else{
-                             Console.WriteLine("-------ms edit FALSE-----------222--");
-                         }
-                       Console.WriteLine("------" + e2.ValidationAttribute.ErrorMessage);
-
-
-                        return "e2 = " + e2;
+                }catch(DbUpdateException e){                 
+                    Console.WriteLine("--------------------"+e.Entries.Count);
+                    Console.WriteLine("--------------------"+e.Data.Count);
+                    return "DbUpdateException";
+                
+                }catch(ValidationException e2 ){ //second layer of validation, most likely not needed; overrided SaveChanges in TestDbContext
+                    if(ModelState.IsValid){
+                        Console.WriteLine("-------db ValidationException true ------------");
+                    }else{
+                        Console.WriteLine("-------db ValidationException false -----------");
                     }
-
-
-
-                    
+                    return "ValidationException = " + e2 + "; "+ e2.ValidationAttribute.ErrorMessage;
                 }
+
                 return("ValidationTest2ViewModel modelstate valid");
             }else{
                 return("ValidationTest2ViewModel Not valid");
             }
 
-            //return Json(null);
-            //return "null";
         }
     }
 

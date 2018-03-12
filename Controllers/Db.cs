@@ -15,7 +15,7 @@ namespace dnc2.Controllers{
         [HttpGet("getData")]
         public IActionResult getData(){
             using( var ctx = new TestDbContext() ){
-                var data = ctx.Users
+                var data = ctx.Users2
                     .Select( x => new { id = x.Id, name = x.Name } )
                     .Where( x => x.id > 10)
                     .Take(3)
@@ -27,7 +27,7 @@ namespace dnc2.Controllers{
         [HttpGet("getData2")]
         public IActionResult getData2(){
             using( var ctx = new TestDbContext() ){
-                var data = ctx.Users
+                var data = ctx.Users2
                     .Include( u=> u.Comment)
                     /*.Select( u => new{
                         Name = u.Name,

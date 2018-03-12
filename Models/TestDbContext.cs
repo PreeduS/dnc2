@@ -15,7 +15,7 @@ namespace dnc2.Models{
             optionsBuilder.UseSqlite("Data Source=./sqlite/Test.db");
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users2 { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ValidationTest2> ValidationTest2 { get; set; }
 

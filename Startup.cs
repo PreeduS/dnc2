@@ -39,9 +39,30 @@ namespace dnc2
             services.AddTransient<IDependencyTransient,DependencyTransient>();  //AddScoped
 
             services.AddIdentity<ApplicationUser,IdentityRole>()
-            .AddEntityFrameworkStores<TestDbContext>()
+            .AddEntityFrameworkStores<TestDbContext>()                                       //.AddErrorDescriber<IdentityErrorDescriber>()
             .AddDefaultTokenProviders();
 
+            /*services.AddAuthentication()
+                .AddJwtBearer(options =>{
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
+                        //...
+                    };
+                }
+            );
+            */
+            services.Configure<IdentityOptions>(options =>{
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options => {
+                options.ExpireTimeSpan = TimeSpan.FromDays(14);
+                options.Cookie.Expiration = TimeSpan.FromDays(14);
+                //options.LoginPath = "/path/path";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -67,7 +67,7 @@ namespace dnc2.Controllers
                 
                 //ctx.Comments.Add(comment);
                 user.Comment = new List<Comment>{ comment, comment2 };
-                ctx.Users.Add(user);
+                ctx.Users2.Add(user);
                  
                 ctx.SaveChanges();
                 //user = new result added to db
@@ -84,7 +84,7 @@ namespace dnc2.Controllers
                 
                 var data = (
                     from c in ctx.Comments
-                    join u in ctx.Users
+                    join u in ctx.Users2
                     on c.UserId equals u.Id  
                     //where u.Id > 5
                     select new{
@@ -114,14 +114,14 @@ namespace dnc2.Controllers
         [HttpGet("getUserData/{username}")]
         public IActionResult getUserData(string username){
             using( var ctx = new TestDbContext() ){
-                var userData = ctx.Users.Where(u => u.Name == username).FirstOrDefault();
+                var userData = ctx.Users2.Where(u => u.Name == username).FirstOrDefault();
                 return Json(userData);
             }    
         }
         [HttpGet("updateUser/{username}")]
         public IActionResult updateUser(string username){
             using( var ctx = new TestDbContext() ){
-                var user = ctx.Users.Where(u => u.Name == username).FirstOrDefault();
+                var user = ctx.Users2.Where(u => u.Name == username).FirstOrDefault();
                 
                 user.Name = $"{username} updated 2";
 
@@ -137,7 +137,7 @@ namespace dnc2.Controllers
         [HttpGet("deleteUser/{username}")]
         public string deleteUser(string username){
                 using( var ctx = new TestDbContext() ){
-                    var user = ctx.Users.Where(u => u.Name == username).FirstOrDefault();
+                    var user = ctx.Users2.Where(u => u.Name == username).FirstOrDefault();
 
                     if(user == null){return "User not found";}
                     ctx.Entry(user).State = EntityState.Deleted;

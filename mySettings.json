@@ -1,3 +1,6 @@
 {
-    "testVar":"test var"
+    "testVar": "test var",
+    "db": {
+        "connectionString":"Data Source=./sqlite/Test.db"
+    }
 }
