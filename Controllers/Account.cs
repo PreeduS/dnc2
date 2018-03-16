@@ -88,6 +88,11 @@ namespace dnc2.Controllers{
             return "private route";
         }
 
+        [Route("[action]")]
+        public string privateRoute2(){
+            //HttpContext
+            return "private route: " + User.Identity.IsAuthenticated + ", "+ User.Identity.Name;
+        }
         
     }
 }

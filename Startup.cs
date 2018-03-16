@@ -14,6 +14,7 @@ using dnc2.Configs;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
+using dnc2.Repos;
 
 namespace dnc2
 {
@@ -34,6 +35,8 @@ namespace dnc2
             
             //services.AddDbContext<TestDbContext>(option => option.UseSqlite("Data Source=./sqlite/Test.db") );
             services.AddDbContext<TestDbContext>();
+            services.AddScoped<ValidationTest2Repository>();
+
           
             services.AddSingleton<IDependencyA,DependencyA>();  
             services.AddTransient<IDependencyTransient,DependencyTransient>();  //AddScoped

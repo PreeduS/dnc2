@@ -11,10 +11,10 @@ namespace dnc2.Controllers{
 
     [Route("v2")]
     public class ValidationTest2Controller : Controller{
-        ValidationTest2Repository repo = new ValidationTest2Repository(new TestDbContext());
+        ValidationTest2Repository repo;// = new ValidationTest2Repository(new TestDbContext());
 
-        public ValidationTest2Controller(){
-            
+        public ValidationTest2Controller(ValidationTest2Repository repo){
+            this.repo = repo;
         }
 
         [Route("test")]
